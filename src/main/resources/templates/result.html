@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scasle=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Results</title>
+</head>
+<body>
+    <h1 class="results">Your list of <span th:text="${numberLimit}"></span> random numbers</h1>
+    <ul class="results">
+        <li th:each="numImg : ${randNumberResult}">
+            <figure>
+                <img th:src="@{'/images/numbers/' + ${numImg}}" th:alt="${numImg}">
+                <figcaption th:text="${numImg}"></figcaption>
+            </figure>
+        </li>
+    </ul>
+    <nav>
+        <a href="/">
+            <button>Start Over</button>
+        </a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://wwwthymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Generate Random Images</title>
+</head>
+<body>
+    <h1>How many numbers do you wish to generate?</h1>
+    <form
+        action="#"
+        th:action="@{/generate}"
+        th:object="${generate}"
+        method="post">
+        <input type="text" th:field="*{numberVal}" size="30" placeholder="Please enter a number from 1 to 30" />
+        <input type="submit" value="Generate" />
+    </form>
+</body>
+</html>

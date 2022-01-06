@@ -1,0 +1,84 @@
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue",Helvetica,Arial;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h1.results {
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+}
+
+button, input {
+    font-family: "Helvetica Neue",Helvetica,Arial;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+input[type="submit"] {
+    background-color: palegreen;
+}
+
+nav button {
+    background-color: orange;
+}
+
+nav button:hover {
+    background-color: rgb(252, 180, 47);
+}
+
+ul.results {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+img {
+    height: 20vh;
+}
+
+figure {
+    display: inline-block;
+}
+
+figure img {
+    height: 25vh;
+
+}
+
+figure figcaption {
+    font-family: "Helvetica Neue",Helvetica,Arial;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid orange;
+    background-color: black;
+    color: white;
+    text-align: center;
+
+}
