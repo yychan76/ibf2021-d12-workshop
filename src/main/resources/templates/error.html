@@ -12,10 +12,8 @@
     <div class="center">
         <h1>An error has occurred</h1>
         <h2 data-th-text="|${error} -- ${message}|"></h2>
-        <div>
-            <img src="/images/numbers/number4.jpg" alt="4">
-            <img src="/images/numbers/number0.jpg" alt="0">
-            <img src="/images/numbers/number0.jpg" alt="0">
+        <div class="errorcode">
+            <img th:each="num : ${errorCode}" th:src="@{'/images/numbers/number' + ${num} + '.jpg'}" th:alt="${num}">
         </div>
     </div>
     <!-- <p>There seems to be an error with the following request

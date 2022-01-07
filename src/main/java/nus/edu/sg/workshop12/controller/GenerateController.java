@@ -9,20 +9,22 @@ import java.util.stream.IntStream;
 // import third party library for logging
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import nus.edu.sg.workshop12.exception.RandomNumberException;
 import nus.edu.sg.workshop12.model.Generate;
 
 @Controller
 public class GenerateController {
     private static final int IMAGE_NUMBERS = 30;
+    private static final String BAD_REQUEST_CODE = "400";
     private static final Logger logger = LoggerFactory.getLogger(GenerateController.class);
     // private static final Random random = new Random();
+
 
     @GetMapping("/")
     public String showGenerateForm(Model model) {
@@ -34,12 +36,11 @@ public class GenerateController {
     @PostMapping("/generate")
     public String generateNumbers(@ModelAttribute Generate generate, Model model) {
         logger.info("User submitted: {}", generate.getNumberVal());
+        try {
         int numberLimit = generate.getNumberVal();
         if (numberLimit > 30 || numberLimit < 0) {
-            // throw new RandomNumberException();
-            model.addAttribute("error", "Invalid Argument");
-            model.addAttribute("message", "Number should be between 1 to 30");
-            return "error";
+            throw new RandomNumberException();
+
         }
 
         // Set<Integer> uniqueRandomNumbersSet = new LinkedHashSet<>();
@@ -58,6 +59,12 @@ public class GenerateController {
         logger.info("Images to display: {}", selectedImg);
         model.addAttribute("randNumberResult", selectedImg);
         model.addAttribute("numberLimit", numberLimit);
+        } catch (RandomNumberException e) {
+            model.addAttribute("error", "Bad Request");
+            model.addAttribute("message", "Number should be between 1 to 30");
+            model.addAttribute("errorCode", BAD_REQUEST_CODE.toCharArray());
+            return "error";
+        }
         return "result";
     }
 }
