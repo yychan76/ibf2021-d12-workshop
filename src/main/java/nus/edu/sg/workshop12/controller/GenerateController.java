@@ -37,30 +37,32 @@ public class GenerateController {
     public String generateNumbers(@ModelAttribute Generate generate, Model model) {
         logger.info("User submitted: {}", generate.getNumberVal());
         try {
-        int numberLimit = generate.getNumberVal();
-        if (numberLimit > 30 || numberLimit < 0) {
-            throw new RandomNumberException();
+            if (generate.getNumberVal() == null) {
+                throw new RandomNumberException();
+            }
+            int numberLimit = generate.getNumberVal();
+            if (numberLimit > 30 || numberLimit < 0) {
+                throw new RandomNumberException();
+            }
 
-        }
+            // Set<Integer> uniqueRandomNumbersSet = new LinkedHashSet<>();
+            // while (uniqueRandomNumbersSet.size() < numberLimit) {
+            //     int randInt = random.nextInt(IMAGE_NUMBERS + 1);
+            //     uniqueRandomNumbersSet.add(randInt);
+            // }
+            List<Integer> numberRange = IntStream.rangeClosed(1, IMAGE_NUMBERS).boxed().collect(Collectors.toList());
+            Collections.shuffle(numberRange);
 
-        // Set<Integer> uniqueRandomNumbersSet = new LinkedHashSet<>();
-        // while (uniqueRandomNumbersSet.size() < numberLimit) {
-        //     int randInt = random.nextInt(IMAGE_NUMBERS + 1);
-        //     uniqueRandomNumbersSet.add(randInt);
-        // }
-        List<Integer> numberRange = IntStream.rangeClosed(1, IMAGE_NUMBERS).boxed().collect(Collectors.toList());
-        Collections.shuffle(numberRange);
+            List<String> selectedImg = numberRange.stream()
+                .limit(numberLimit)
+                .map(num -> "number" + num + ".jpg")
+                .toList();
 
-        List<String> selectedImg = numberRange.stream()
-            .limit(numberLimit)
-            .map(num -> "number" + num + ".jpg")
-            .toList();
-
-        logger.info("Images to display: {}", selectedImg);
-        model.addAttribute("randNumberResult", selectedImg);
-        model.addAttribute("numberLimit", numberLimit);
+            logger.info("Images to display: {}", selectedImg);
+            model.addAttribute("randNumberResult", selectedImg);
+            model.addAttribute("numberLimit", numberLimit);
         } catch (RandomNumberException e) {
-            model.addAttribute("error", "Bad Request");
+            model.addAttribute("error", "Invalid Request");
             model.addAttribute("message", "Number should be between 1 to 30");
             model.addAttribute("errorCode", BAD_REQUEST_CODE.toCharArray());
             return "error";
