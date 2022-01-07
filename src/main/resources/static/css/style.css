@@ -8,8 +8,6 @@ h1 {
     font-size: 36px;
 }
 
-
-
 .center {
     display: flex;
     flex-direction: column;
@@ -81,4 +79,11 @@ figure figcaption {
     color: white;
     text-align: center;
 
+}
+
+@media screen and (max-width: 600px) {
+    img {
+        width: 30vw;
+        height: 100%;
+    }
 }
