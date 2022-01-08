@@ -13,12 +13,13 @@
         <h1>An error has occurred</h1>
         <h2 data-th-text="|${error} -- ${message}|"></h2>
         <div class="errorcode">
-            <img th:each="num : ${errorCode}" th:src="@{'/images/numbers/number' + ${num} + '.jpg'}" th:alt="${num}">
+            <!-- convert status to string then char array, then iterate through the char array -->
+            <img th:each="num : ${('' + status).toCharArray()}" th:src="@{'/images/numbers/number' + ${num} + '.jpg'}" th:alt="${num}">
         </div>
     </div>
-    <!-- <p>There seems to be an error with the following request
-    <span data-th-text="${path}"></span>
-    </p> -->
+    <p>
+        There seems to be an error with the following request <span data-th-text="${path}"></span>
+    </p>
     <nav>
         <a href="/">
             <button>Start Over</button>

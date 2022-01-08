@@ -9,11 +9,13 @@ import java.util.stream.IntStream;
 // import third party library for logging
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import nus.edu.sg.workshop12.exception.RandomNumberException;
 import nus.edu.sg.workshop12.model.Generate;
@@ -62,10 +64,7 @@ public class GenerateController {
             model.addAttribute("randNumberResult", selectedImg);
             model.addAttribute("numberLimit", numberLimit);
         } catch (RandomNumberException e) {
-            model.addAttribute("error", "Invalid Request");
-            model.addAttribute("message", "Number should be between 1 to 30");
-            model.addAttribute("errorCode", BAD_REQUEST_CODE.toCharArray());
-            return "error";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Number should be between 1 and 30", e);
         }
         return "result";
     }
