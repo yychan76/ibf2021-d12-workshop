@@ -14,7 +14,7 @@
         th:action="@{/generate}"
         th:object="${generate}"
         method="post">
-        <input type="text" th:field="*{numberVal}" size="30" placeholder="Please enter a number from 1 to 30" />
+        <input type="number" th:field="*{numberVal}" size=40 placeholder="Please enter a number from 1 to 30" />
         <input type="submit" value="Generate" />
     </form>
 </body>
